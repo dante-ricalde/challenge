@@ -1,4 +1,6 @@
-import com.auto1.MyClass
+package com.amazon
+
+
 import spock.lang.Specification
 
 
