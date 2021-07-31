@@ -3,7 +3,7 @@ package com.auto1.storage;
 import com.auto1.storage.model.Secret;
 
 /**
- * [Description].
+ * Storage service for managing Secrets where the key could be String or Integer.
  * <br/>
  * <b>Class</b>: {@link StorageService}<br/>
  *
