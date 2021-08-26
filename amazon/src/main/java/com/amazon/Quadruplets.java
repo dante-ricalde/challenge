@@ -26,10 +26,10 @@ public class Quadruplets {
     public static List<Integer[]> fourNumberSum(int[] array, int targetSum) {
         // Write your code here.
         final List<List<Integer>> combinations = new ArrayList<>();
-        List<Integer> prefixArray = Arrays.stream(Arrays.copyOf(array, array.length - 3)).boxed().collect(Collectors.toList());
-        for (int j = 0; j < prefixArray.size(); j++) {
+        int[] prefixArray = Arrays.copyOf(array, array.length - 3);
+        for (int j = 0; j < prefixArray.length; j++) {
             List<Integer> newPreFixArray = new ArrayList<>();
-            newPreFixArray.add(prefixArray.get(j));
+            newPreFixArray.add(prefixArray[j]);
             fourNumberSumRecursive(combinations, newPreFixArray, array, j + 1, array.length - 4 + 1, targetSum);
         }
         return combinations.stream().map(l -> l.toArray(Integer[]::new)).collect(Collectors.toList());
