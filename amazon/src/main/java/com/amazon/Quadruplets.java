@@ -1,6 +1,7 @@
 package com.amazon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,10 +26,7 @@ public class Quadruplets {
     public static List<Integer[]> fourNumberSum(int[] array, int targetSum) {
         // Write your code here.
         final List<List<Integer>> combinations = new ArrayList<>();
-        List<Integer> prefixArray = new ArrayList<>();
-        for (int i = 0; i <= array.length - 4; i++) {
-            prefixArray.add(array[i]);
-        }
+        List<Integer> prefixArray = Arrays.stream(Arrays.copyOf(array, array.length - 3)).boxed().collect(Collectors.toList());
         for (int j = 0; j < prefixArray.size(); j++) {
             List<Integer> newPreFixArray = new ArrayList<>();
             newPreFixArray.add(prefixArray.get(j));
