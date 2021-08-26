@@ -1,9 +1,8 @@
 package com.amazon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 /**
  * [Description].
@@ -25,42 +24,33 @@ public class Quadruplets {
 
     public static List<Integer[]> fourNumberSum(int[] array, int targetSum) {
         // Write your code here.
-        int digits = 1;
-        List<List<Integer>> subLists = new ArrayList<>();
-
-        while (digits <= 4) {
-            for (int i = 0; i < array.length - 1; i++) {
-                int positionToStart = i + digits;
-                while (positionToStart <= array.length - 3 + (digits - 1)) {
-                    final ArrayList<Integer> subList = new ArrayList<>();
-                    IntStream.range(i, i + digits).forEach(ir -> subList.add(array[ir]));
-                    subLists.add(subList);
-                    for (int j = positionToStart; j <= positionToStart + 3 - digits; j++) {
-                        subList.add(array[j]);
-                    }
-                    positionToStart++;
-                }
-            }
-            digits++;
+        final List<List<Integer>> combinations = new ArrayList<>();
+        List<Integer> prefixArray = new ArrayList<>();
+        for (int i = 0; i <= array.length - 4; i++) {
+            prefixArray.add(array[i]);
         }
-        List<Integer[]> result = new ArrayList<>();
+        for (int j = 0; j < prefixArray.size(); j++) {
+            List<Integer> newPreFixArray = new ArrayList<>();
+            newPreFixArray.add(prefixArray.get(j));
+            fourNumberSumRecursive(combinations, newPreFixArray, array, j + 1, array.length - 4 + 1, targetSum, 1);
+        }
+        return combinations.stream().map(l -> l.toArray(Integer[]::new)).collect(Collectors.toList());
+    }
 
-        for (List<Integer> subList : subLists) {
-            if (subList.stream().mapToInt(e -> e).sum() == targetSum) {
-                final Integer[] subListArray = subList.toArray(Integer[]::new);
-                boolean found = false;
-                for (Integer[] arrayInResult: result) {
-                    if (Arrays.equals(arrayInResult, subListArray)) {
-                        found = true;
-                        break;
-                    }
+    private static void fourNumberSumRecursive(List<List<Integer>> combinations, List<Integer> prefixArray, int[] array, int positionToStart, int positionToEnd, int targetNum, int depth) {
+        for (int i = positionToStart; i <= positionToEnd; i++) {
+            List<Integer> newPreFixArray = new ArrayList<>();
+            newPreFixArray.addAll(prefixArray);
+            newPreFixArray.add(array[i]);
+            if (newPreFixArray.size() == 4) {
+                if (newPreFixArray.stream().mapToInt(e -> e).sum() == targetNum) {
+                    combinations.add(newPreFixArray);
                 }
-                if (!found) {
-                    result.add(subListArray);
-                }
+            } else {
+                positionToEnd = positionToEnd == array.length - 1 ? positionToEnd : positionToEnd + 1;
+                fourNumberSumRecursive(combinations, newPreFixArray, array, ++positionToStart, positionToEnd, targetNum, ++depth);
             }
         }
-        return result;
     }
 
 }
