@@ -30,12 +30,12 @@ public class Quadruplets {
         for (int j = 0; j < prefixArray.size(); j++) {
             List<Integer> newPreFixArray = new ArrayList<>();
             newPreFixArray.add(prefixArray.get(j));
-            fourNumberSumRecursive(combinations, newPreFixArray, array, j + 1, array.length - 4 + 1, targetSum, 1);
+            fourNumberSumRecursive(combinations, newPreFixArray, array, j + 1, array.length - 4 + 1, targetSum);
         }
         return combinations.stream().map(l -> l.toArray(Integer[]::new)).collect(Collectors.toList());
     }
 
-    private static void fourNumberSumRecursive(List<List<Integer>> combinations, List<Integer> prefixArray, int[] array, int positionToStart, int positionToEnd, int targetNum, int depth) {
+    private static void fourNumberSumRecursive(List<List<Integer>> combinations, List<Integer> prefixArray, int[] array, int positionToStart, int positionToEnd, int targetNum) {
         for (int i = positionToStart; i <= positionToEnd; i++) {
             List<Integer> newPreFixArray = new ArrayList<>();
             newPreFixArray.addAll(prefixArray);
@@ -46,7 +46,7 @@ public class Quadruplets {
                 }
             } else {
                 positionToEnd = positionToEnd == array.length - 1 ? positionToEnd : positionToEnd + 1;
-                fourNumberSumRecursive(combinations, newPreFixArray, array, ++positionToStart, positionToEnd, targetNum, ++depth);
+                fourNumberSumRecursive(combinations, newPreFixArray, array, ++positionToStart, positionToEnd, targetNum);
             }
         }
     }
