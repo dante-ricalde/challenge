@@ -58,7 +58,7 @@ class SimpleControllerTest {
                         .param("number", "abc"))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers
-                        .jsonPath("$.detail", Is.is("Required parameter 'number' is not present.")))
+                        .jsonPath("$.detail", Is.is("Parameter number must be a number.")))
                 .andExpect(MockMvcResultMatchers
                         .jsonPath("$.title", Is.is("Bad Request")));
     }
