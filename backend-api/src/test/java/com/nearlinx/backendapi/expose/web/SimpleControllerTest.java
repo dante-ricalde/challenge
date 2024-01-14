@@ -35,6 +35,16 @@ class SimpleControllerTest {
     }
 
     @Test
+    void testEchoMessageNotProvided() throws Exception {
+        mockMvc.perform(get("/api/echo"))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.detail", Is.is("Required parameter 'message' is not present.")))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.title", Is.is("Bad Request")));
+    }
+
+    @Test
     void testSquare() throws Exception {
         mockMvc.perform(get("/api/square")
                         .param("number", "5"))
