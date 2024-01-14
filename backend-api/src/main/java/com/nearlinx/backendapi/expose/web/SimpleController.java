@@ -1,13 +1,21 @@
 package com.nearlinx.backendapi.expose.web;
 
+import com.nearlinx.backendapi.model.User;
+import com.nearlinx.backendapi.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class SimpleController {
+
+    private final UserService userService;
 
     @GetMapping("/greet")
     public String greet() {
@@ -35,6 +43,11 @@ public class SimpleController {
     @GetMapping("/square")
     public Double square(@RequestParam Double number) {
         return Math.pow(number, 2);
+    }
+
+    @GetMapping("/users")
+    public List<User> users() {
+        return userService.users();
     }
 
 }
