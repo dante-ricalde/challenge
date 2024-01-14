@@ -23,4 +23,20 @@ class SimpleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Hello, welcome to the Spring Boot REST API!"));
     }
+
+    @Test
+    void testEcho() throws Exception {
+        mockMvc.perform(get("/api/echo")
+                        .param("message", "echoing this message"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("echoing this message"));
+    }
+
+    @Test
+    void testSquare() throws Exception {
+        mockMvc.perform(get("/api/square")
+                        .param("number", "5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("25.0"));
+    }
 }
