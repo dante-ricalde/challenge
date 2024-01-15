@@ -33,3 +33,16 @@ http://localhost:8080/swagger-ui/index.html
             return Math.pow(number, 2);
         }
     ```
+   
+# Build and run docker image
+Locate (cd) at the root folder of the project: `backend-api`
+
+## Build docker image
+```dockerfile
+docker build -t backend-api . -f src/main/docker/Dockerfile
+```
+
+## Run docker image
+```dockerfile
+docker run -p8080:8080 -d backend-api
+```
