@@ -12,5 +12,5 @@
         <appender-ref ref="STDOUT" />
     </root>
     <logger level="INFO" name="org.springframework"/>
-    <logger level="DEBUG" name="com.nearlinx.backendapi"/>
+    <logger level="INFO" name="com.nearlinx.backendapi"/>
 </configuration>
