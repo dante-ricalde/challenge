@@ -1,8 +1,8 @@
 package com.nearlinx.backendapi.web.error.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MissingRequestValueException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,18 +14,14 @@ import java.util.Map;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+@Slf4j
 @ControllerAdvice
 public class ErrorControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ResponseBody
-    @ExceptionHandler(MissingRequestValueException.class)
-    public ResponseEntity<?> handleMissingRequestValueException() {
-        return ResponseEntity.badRequest().build();
-    }
-
-    @ResponseBody
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(HttpServletRequest request, MethodArgumentTypeMismatchException ex) {
+        log.debug("handling MethodArgumentTypeMismatchException for exception", ex);
         var map = new HashMap<String, String>();
         if (ex.getCause() instanceof NumberFormatException) {
             map.put("title", BAD_REQUEST.getReasonPhrase());
