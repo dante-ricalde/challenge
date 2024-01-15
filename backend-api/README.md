@@ -1,3 +1,6 @@
+# Postman project at the root folder of this project
+`backend_api.postman_collection.json`
+
 # Application running in local
 http://localhost:8080
 
